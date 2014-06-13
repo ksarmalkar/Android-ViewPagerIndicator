@@ -35,7 +35,9 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  * across different configurations or circumstances.
  */
 public class TabPageIndicator extends HorizontalScrollView implements PageIndicator {
-    /** Title text used when no title is provided by the adapter. */
+    /**
+     * Title text used when no title is provided by the adapter.
+     */
     private static final CharSequence EMPTY_TITLE = "";
 
     /**
@@ -54,7 +56,7 @@ public class TabPageIndicator extends HorizontalScrollView implements PageIndica
 
     private final OnClickListener mTabClickListener = new OnClickListener() {
         public void onClick(View view) {
-            TabView tabView = (TabView)view;
+            TabView tabView = (TabView) view;
             final int oldSelected = mViewPager.getCurrentItem();
             final int newSelected = tabView.getIndex();
             mViewPager.setCurrentItem(newSelected);
@@ -98,11 +100,7 @@ public class TabPageIndicator extends HorizontalScrollView implements PageIndica
 
         final int childCount = mTabLayout.getChildCount();
         if (childCount > 1 && (widthMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.AT_MOST)) {
-            if (childCount > 2) {
-                mMaxTabWidth = (int)(MeasureSpec.getSize(widthMeasureSpec) * 0.4f);
-            } else {
-                mMaxTabWidth = MeasureSpec.getSize(widthMeasureSpec) / 2;
-            }
+            mMaxTabWidth = MeasureSpec.getSize(widthMeasureSpec);
         } else {
             mMaxTabWidth = -1;
         }
@@ -160,7 +158,7 @@ public class TabPageIndicator extends HorizontalScrollView implements PageIndica
             tabView.setCompoundDrawablesWithIntrinsicBounds(iconResId, 0, 0, 0);
         }
 
-        mTabLayout.addView(tabView, new LinearLayout.LayoutParams(0, MATCH_PARENT, 1));
+        mTabLayout.addView(tabView, new LinearLayout.LayoutParams(WRAP_CONTENT, MATCH_PARENT, 1));
     }
 
     @Override
@@ -207,7 +205,7 @@ public class TabPageIndicator extends HorizontalScrollView implements PageIndica
         PagerAdapter adapter = mViewPager.getAdapter();
         IconPagerAdapter iconAdapter = null;
         if (adapter instanceof IconPagerAdapter) {
-            iconAdapter = (IconPagerAdapter)adapter;
+            iconAdapter = (IconPagerAdapter) adapter;
         }
         final int count = adapter.getCount();
         for (int i = 0; i < count; i++) {
