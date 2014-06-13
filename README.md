@@ -12,6 +12,6 @@ and
 
 ```ruby
 dependencies {
-    compile 'com.viewpagerindicator:library:2.4.2@aar'
+    compile 'com.ksarmalkar.viewpagerindicator:library:2.4.2@aar'
 }
 ```
