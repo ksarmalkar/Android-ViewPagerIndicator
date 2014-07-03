@@ -11,10 +11,10 @@ buildscript {
     }
 }
 
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 apply plugin: 'maven'
 
-def coreAarFile = file('build/library.aar')
+def coreAarFile = file('build/libs/library.aar')
 artifacts {
     archives coreAarFile
 }
@@ -24,7 +24,7 @@ uploadArchives {
             repository(url: "file:///Users/Kedar/ksarmalkar_maven/Android-ViewPagerIndicator-Pages/repository")
             pom.groupId = 'com.viewpagerindicator'
             pom.artifactId = 'library'
-            pom.version = '2.4.2'
+            pom.version = '2.4.3'
         }
     }
 }
