@@ -12,6 +12,22 @@ buildscript {
 }
 
 apply plugin: 'android-library'
+apply plugin: 'maven'
+
+def coreAarFile = file('build/library.aar')
+artifacts {
+    archives coreAarFile
+}
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file:///Users/Kedar/ksarmalkar_maven/Android-ViewPagerIndicator-Pages/repository")
+            pom.groupId = 'com.viewpagerindicator'
+            pom.artifactId = 'library'
+            pom.version = '2.4.2'
+        }
+    }
+}
 
 repositories {
     mavenCentral()
@@ -21,7 +37,7 @@ android {
     compileSdkVersion 19
     buildToolsVersion '19.1.0'
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 8
         targetSdkVersion 19
         versionCode 1
         versionName '1.0'
