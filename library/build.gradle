@@ -7,7 +7,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
+        classpath 'com.android.tools.build:gradle:1.0.1'
     }
 }
 
@@ -18,13 +18,25 @@ def coreAarFile = file('build/libs/library.aar')
 artifacts {
     archives coreAarFile
 }
+
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "file:///Users/Kedar/ksarmalkar_maven/Android-ViewPagerIndicator-Pages/repository")
-            pom.groupId = 'com.viewpagerindicator'
-            pom.artifactId = 'library'
-            pom.version = '2.4.3'
+            repository(url: System.getenv('ARTIFACTORY_RELEASE_URL')){
+                authentication(userName: System.getProperty('taUsername'),
+                        password: System.getProperty('taPassword'))
+            }
+            snapshotRepository(url: System.getenv('ARTIFACTORY_SNAPSHOT_URL')){
+                authentication(userName: System.getProperty('taUsername'),
+                        password: System.getProperty('taPassword'))
+            }
+            pom.project {
+                groupId 'com.viewpagerindicator'
+                artifactId 'viewpagerindicator'
+                name 'Android ViewPagerIndicator'
+                packaging 'aar'
+                version '2.4.4'
+            }
         }
     }
 }
@@ -42,9 +54,13 @@ android {
         versionCode 1
         versionName '1.0'
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
